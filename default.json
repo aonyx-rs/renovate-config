@@ -10,5 +10,26 @@
   "semanticCommits": "disabled",
   "pre-commit": {
     "enabled": true
-  }
+  },
+
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^.github/workflows/[\\w]+.yml$"],
+      "matchStrings": ["prefix-key: [\\w]+-(?<currentValue>.*?)\\n"],
+      "depNameTemplate": "rust",
+      "lookupNameTemplate": "rust-lang/rust",
+      "datasourceTemplate": "github-tags"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["(^|/)rust-toolchain\\.toml?$"],
+      "matchStrings": [
+        "channel\\s*=\\s*\"(?<currentValue>\\d+\\.\\d+(\\.\\d+)?)\""
+      ],
+      "depNameTemplate": "rust",
+      "lookupNameTemplate": "rust-lang/rust",
+      "datasourceTemplate": "github-tags"
+    }
+  ]
 }
